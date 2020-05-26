@@ -1,16 +1,15 @@
-import Vue from 'vue'
-import App from './App.vue'
-import axios from 'axios'
+import Vue from "vue";
+import VueClipboard from "vue-clipboard2";
+import VueMaterial from "vue-material";
+import "vue-material/dist/theme/default.css";
+import "vue-material/dist/vue-material.min.css";
+import App from "./App.vue";
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
 
-import VueMaterial from 'vue-material'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
-
-Vue.use(VueMaterial)
-Vue.prototype.$axios= axios
+Vue.use(VueClipboard);
+Vue.use(VueMaterial);
 
 new Vue({
-  render: h => h(App),
-}).$mount('#app')
+  render: (h) => h(App),
+}).$mount("#app");
