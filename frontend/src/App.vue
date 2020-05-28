@@ -1,9 +1,7 @@
 <template>
   <div id="app">
     <section class="header">
-      <md-field>
-        <md-textarea cols="10" md-counter v-model="newClipText"></md-textarea>
-      </md-field>
+      <md-textarea cols="10" md-counter v-model="newClipText"></md-textarea>
       <md-button class="md-raised" @click="clearNewClipText">清空</md-button>
       <md-button class="md-raised md-primary" @click="addClip">添加</md-button>
     </section>
@@ -11,12 +9,14 @@
     <section class="main">
       <div class="clips">
         <div v-for="clip in clips" class="clip" :key="clip.id">
-          <md-card md-with-hover>
+          <md-card>
             <md-card-content v-clipboard:copy="clip.text">{{ clip.text }}</md-card-content>
-            <md-card-actions>
+            <div class="clip-actions">
               <md-button class="md-raised md-primary" v-clipboard:copy="clip.text">复制</md-button>
-              <md-button class="md-accent md-raised" @click="removeClip(clip)">删除</md-button>
-            </md-card-actions>
+              <md-button class="md-raised" @click="removeClip(clip)">
+                <v-icon>mdi-delete</v-icon>
+              </md-button>
+            </div>
           </md-card>
         </div>
       </div>
@@ -75,6 +75,30 @@ export default {
 }
 
 #app .md-textarea {
+  display: block;
+  margin: 30px 0px 0px 0px;
+  background-color: aliceblue;
   resize: none;
+}
+
+#app .main .clip {
+  margin-top: 20px;
+}
+
+#app .main .clip-actions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+#app .md-card-content {
+  padding: 30px 0px 30px 30px;
+}
+</style>
+
+
+<style>
+body {
+  background-color: #e9ecef;
 }
 </style>
