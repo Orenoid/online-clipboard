@@ -1,8 +1,12 @@
 import axios from "axios";
 import eventBus from "@/modules/event-bus";
 
+let host =
+  process.env.VUE_APP_API_HOST !== undefined
+    ? process.env.VUE_APP_API_HOST
+    : "";
 let service = axios.create({
-  baseURL: "http://127.0.0.1:5000/api",
+  baseURL: host + "/api",
   timeout: 5000,
 });
 
