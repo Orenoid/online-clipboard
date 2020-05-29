@@ -11,7 +11,7 @@
     <section class="main">
       <div class="clips">
         <div v-for="clip in clips" class="clip" :key="clip.id">
-          <md-card>
+          <md-card md-with-hover>
             <md-card-content v-clipboard:copy="clip.text" @click="showCopiedMsg()">{{ clip.text }}</md-card-content>
             <div class="clip-actions">
               <md-button
@@ -116,7 +116,6 @@ export default {
 #app .md-textarea {
   display: block;
   /* margin: 30px 0px 0px 0px; */
-  background-color: aliceblue;
   resize: none;
 }
 
@@ -126,7 +125,11 @@ export default {
 
 #app .md-card-content {
   white-space: pre-wrap;
-  padding: 30px 0px 30px 30px;
+  padding: 50px 0px 50px 50px;
+}
+
+#app .footer {
+  margin-top: 30px;
 }
 </style>
 
