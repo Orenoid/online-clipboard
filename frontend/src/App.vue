@@ -103,10 +103,9 @@ export default {
   methods: {
     async addClip() {
       if (!this.newClipText) return;
-      let res = await axios.post("/clips", {
-        text: this.newClipText,
-        channel_name: this.channelName || null
-      });
+      let clipJson = { text: this.newClipText };
+      if (this.channelName) clipJson.channel_name = this.channelName;
+      let res = await axios.post("/clips", clipJson);
       let newClipObj = res.data;
       this.clips.push(newClipObj);
       this.newClipText = "";
