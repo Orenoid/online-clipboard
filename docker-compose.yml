@@ -2,6 +2,7 @@ version: "3.4"
 services:
   frontend-server:
     container_name: "clipboard-frontend-prod-server"
+    image: orenoid/clipboard-frontend-prod
     build:
       context: ./frontend
       dockerfile: ./Dockerfile
@@ -17,6 +18,9 @@ services:
 
   backend-server:
     container_name: "clipboard-backend-prod-server"
+    image: orenoid/clipboard-backend-prod
+    environment: 
+      FLASK_CONFIG: production
     build:
       context: ./backend
       dockerfile: ./Dockerfile
