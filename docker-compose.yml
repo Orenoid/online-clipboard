@@ -25,15 +25,33 @@ services:
       context: ./backend
       dockerfile: ./Dockerfile
       target: prod
+    networks:
+        - clipboard
     volumes:
       - backend-data:/code/data
-    networks:
-    - clipboard
     ports:
       - "5000:5000"
+    env_file: 
+      - ./conf/backend-prod.example.env
+    depends_on: 
+      - backend-database
+
+  backend-database:
+    container_name: "clipboard-backend-prod-database"
+    image: mysql:5.7.30
+    volumes: 
+      - backend-database:/var/lib/mysql
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    networks: 
+      - clipboard
+    ports: 
+      - "3309:3306"
+    env_file: 
+      - ./conf/mysql.example.env
 
 volumes:
   backend-data:
+  backend-database:
 
 networks:
     clipboard:
