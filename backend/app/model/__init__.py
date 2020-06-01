@@ -1,3 +1,4 @@
+import datetime
 import uuid
 
 from flask_sqlalchemy import SQLAlchemy
@@ -9,9 +10,10 @@ db = SQLAlchemy()
 
 class Clip(db.Model, MarshalMixin):
     physical_id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    id = db.Column(db.BINARY, unique=True, default=generate_uuid, nullable=False)
+    id = db.Column(db.BINARY(16), unique=True, default=generate_uuid, nullable=False)
     text = db.Column(db.TEXT, nullable=False)
     channel_name = db.Column(db.String(255))
+    created_at = db.Column(db.DateTime, default=datetime.datetime.now, nullable=False)
 
     @classmethod
     def auto_marshaling_model(cls) -> dict:
@@ -22,5 +24,6 @@ class Clip(db.Model, MarshalMixin):
         return {
             'id': ClipId(readonly=True),
             'text': fields.String(required=True),
-            'channel_name': fields.String(required=False)
+            'channel_name': fields.String(required=False),
+            'created_at': fields.DateTime(readonly=True),
         }
