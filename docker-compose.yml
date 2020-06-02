@@ -33,6 +33,7 @@ services:
       - "5000:5000"
     env_file: 
       - ./conf/backend-prod.example.env
+    restart: unless-stopped
     depends_on: 
       - backend-database
 
