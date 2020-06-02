@@ -30,18 +30,22 @@
 
       <div class="clips">
         <p class="current-channel-message">{{currentChannelMessage}}</p>
-        <div v-for="clip in clips" class="clip" :key="clip.id">
+        <div
+          v-for="clip in clips"
+          class="clip"
+          :key="clip.id"
+          @click="showGlobalMessage('已复制到粘贴板')"
+          @mouseenter="clip.hovered=true"
+          @mouseleave="clip.hovered=false"
+        >
           <md-card md-with-hover>
-            <md-card-content v-clipboard:copy="clip.text" @click="showCopiedMsg()">{{ clip.text }}</md-card-content>
-            <div class="clip-actions">
-              <md-button
-                class="md-raised md-primary"
+            <md-card-content v-clipboard:copy="clip.text">{{ clip.text }}</md-card-content>
+            <div class="clip-actions" :style="{visibility: clip.hovered?'visible':'hidden'}">
+              <v-icon
                 v-clipboard:copy="clip.text"
-                @click="showCopiedMsg()"
-              >复制</md-button>
-              <md-button class="md-raised" @click="removeClip(clip)">
-                <v-icon>mdi-delete</v-icon>
-              </md-button>
+                @click.stop="showGlobalMessage('已复制到粘贴板')"
+              >mdi-content-copy</v-icon>
+              <v-icon size="28px" @click.stop="removeClip(clip)">mdi-trash-can-outline</v-icon>
             </div>
           </md-card>
         </div>
@@ -73,7 +77,7 @@ export default {
       snackbarConfig: {
         showSnackBar: false,
         message: "",
-        duration: 4000
+        duration: 1500
       }
     };
   },
@@ -93,6 +97,9 @@ export default {
   },
   created: async function() {
     let clips = await this.getClipsFromApi(this.channelName);
+    for (let clip of clips) {
+      clip.hovered = false;
+    }
     this.clips = clips;
   },
   watch: {
@@ -107,11 +114,15 @@ export default {
       if (this.channelName) clipJson.channel_name = this.channelName;
       let res = await axios.post("/clips", clipJson);
       let newClipObj = res.data;
+      newClipObj.hovered = false;
       this.clips.push(newClipObj);
       this.newClipText = "";
     },
     refreshClipsByChannelName: _.debounce(async function(channelName) {
       let clips = await this.getClipsFromApi(channelName);
+      for (let clip of clips) {
+        clip.hovered = false;
+      }
       this.clips = clips;
     }, 500),
     async getClipsFromApi(channelName = null) {
@@ -135,7 +146,7 @@ export default {
       this.clips = [];
     },
     sortClips: function() {},
-    showCopiedMsg: function(message = "已复制到粘贴板") {
+    showGlobalMessage: function(message) {
       eventBus.$emit("global-snackbar-message", { message: message });
     }
   }
@@ -176,7 +187,7 @@ export default {
 
 #app .md-card-content {
   white-space: pre-wrap;
-  padding: 50px 0px 50px 50px;
+  padding: 50px 100px 50px 50px;
 }
 
 #app .footer {
@@ -197,12 +208,27 @@ export default {
   margin-left: 20px;
   margin-top: 30px;
 }
+
+#app div .clip {
+  position: relative;
+}
+
+#app .main .clips .clip .clip-actions {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+#app .main .clips .clip .clip-actions .v-icon {
+  margin-left: 10px;
+  /* border: 2px #c5c5c5 solid; */
+}
 </style>
 
 
 <style>
 body {
-  background-color: #b9b9b9;
+  background-color: #adacac;
   overflow: auto;
 }
 </style>
