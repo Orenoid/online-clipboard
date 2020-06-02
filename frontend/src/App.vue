@@ -19,7 +19,7 @@
 
     <section class="main">
       <md-field md-clearable id="newClipTextField">
-        <md-textarea cols="10" v-model="newClipText"></md-textarea>
+        <md-textarea autofocus cols="10" v-model="newClipText" @keyup.ctrl.enter="addClip"></md-textarea>
       </md-field>
       <div class="textarea-actions">
         <md-button class="md-raised md-primary" @click="addClip">添加</md-button>
