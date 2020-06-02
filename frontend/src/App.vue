@@ -101,6 +101,7 @@ export default {
       clip.hovered = false;
     }
     this.clips = clips;
+    this.sortClips();
   },
   watch: {
     channelName: function(newChannelName) {
@@ -116,6 +117,7 @@ export default {
       let newClipObj = res.data;
       newClipObj.hovered = false;
       this.clips.push(newClipObj);
+      this.sortClips();
       this.newClipText = "";
     },
     refreshClipsByChannelName: _.debounce(async function(channelName) {
@@ -124,6 +126,7 @@ export default {
         clip.hovered = false;
       }
       this.clips = clips;
+      this.sortClips();
     }, 500),
     async getClipsFromApi(channelName = null) {
       if (channelName === "") channelName = null;
@@ -145,7 +148,11 @@ export default {
       });
       this.clips = [];
     },
-    sortClips: function() {},
+    sortClips: function() {
+      this.clips.sort(function(clipA, clipB) {
+        return clipA.created_at > clipB.created_at ? -1 : 1;
+      });
+    },
     showGlobalMessage: function(message) {
       eventBus.$emit("global-snackbar-message", { message: message });
     }
