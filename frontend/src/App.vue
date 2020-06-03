@@ -41,11 +41,18 @@
           <md-card md-with-hover>
             <md-card-content v-clipboard:copy="clip.text">{{ clip.text }}</md-card-content>
             <div class="clip-actions" :style="{visibility: clip.hovered?'visible':'hidden'}">
-              <v-icon
-                v-clipboard:copy="clip.text"
-                @click.stop="showGlobalMessage('已复制到粘贴板')"
-              >mdi-content-copy</v-icon>
-              <v-icon size="28px" @click.stop="removeClip(clip)">mdi-trash-can-outline</v-icon>
+              <span>
+                <v-icon
+                  v-clipboard:copy="clip.text"
+                  @click.stop="showGlobalMessage('已复制到粘贴板')"
+                >mdi-content-copy</v-icon>
+                <md-tooltip md-direction="bottom" md-delay="500">复制文本</md-tooltip>
+              </span>
+              <span>
+                <v-icon size="28px" @click.stop="removeClip(clip)">mdi-trash-can-outline</v-icon>
+                <md-tooltip md-direction="bottom" md-delay="500">删除</md-tooltip>
+
+              </span>
             </div>
           </md-card>
         </div>
