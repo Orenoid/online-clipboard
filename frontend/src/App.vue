@@ -24,12 +24,15 @@
       <div class="textarea-actions">
         <md-button class="md-raised md-primary" @click="addClip">添加</md-button>
       </div>
-      <div class="clipboard-actions">
-        <md-button class="md-accent md-raised" @click="clearClipboard">删除全部</md-button>
-      </div>
 
       <div class="clips">
-        <p class="current-channel-message">{{currentChannelMessage}}</p>
+        <div class="clipboard-header">
+          <p class="current-channel-message">{{currentChannelMessage}}</p>
+          <div class="clear-clipboard">
+            <v-icon size="22px" @click="clearClipboard">mdi-trash-can-outline</v-icon>
+            <md-tooltip md-direction="right">删除当前频道全部内容</md-tooltip>
+          </div>
+        </div>
         <div
           v-for="clip in clips"
           class="clip"
@@ -167,13 +170,13 @@ export default {
 
 <style scoped>
 #app {
-  background-color: #fafafa;
+  background-color: #f0f0f0;
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 70%;
+  width: 80%;
   margin: auto;
   overflow: auto;
 }
@@ -184,16 +187,36 @@ export default {
 }
 
 #app .main {
+  display: flex;
+  flex-direction: column;
   margin-top: 40px;
 }
 
 #app .md-textarea {
-  margin: 20px 10px 0 10px;
+  margin-bottom: 30px;
   display: block;
   resize: none;
 }
 
+#app .textarea-actions {
+  margin-top: 15px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#app .clipboard-header {
+  margin-left: 20px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+#app .clipboard-header .clear-clipboard {
+  margin-left: 10px;
+}
+
 #app .main .clip {
+  font-family: Arial, "Microsoft YaHei";
   margin: 20px 10px 0 10px;
 }
 
@@ -216,11 +239,6 @@ export default {
   max-width: 400px;
 }
 
-.current-channel-message {
-  margin-left: 20px;
-  margin-top: 30px;
-}
-
 #app div .clip {
   position: relative;
 }
@@ -240,7 +258,7 @@ export default {
 
 <style>
 body {
-  background-color: #adacac;
+  background-color: #cfcfcf;
   overflow: auto;
 }
 </style>
