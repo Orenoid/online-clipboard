@@ -25,14 +25,14 @@
         <md-button class="md-raised md-primary" @click="addClip">添加</md-button>
       </div>
 
-      <div class="clips">
-        <div class="clipboard-header">
-          <p class="current-channel-message">{{currentChannelMessage}}</p>
-          <div class="clear-clipboard">
-            <v-icon size="22px" @click="clearClipboard">mdi-trash-can-outline</v-icon>
-            <md-tooltip md-direction="right">清空当前频道</md-tooltip>
-          </div>
+      <div class="clipboard-header">
+        <p class="current-channel-message">{{currentChannelMessage}}</p>
+        <div class="clear-clipboard">
+          <v-icon size="22px" @click="clearClipboard">mdi-trash-can-outline</v-icon>
+          <md-tooltip md-direction="right">清空当前频道</md-tooltip>
         </div>
+      </div>
+      <div class="clips">
         <div
           v-for="clip in clips"
           class="clip"
@@ -170,21 +170,21 @@ export default {
 
 <style scoped>
 #app {
-  background-color: #f0f0f0;
+  background-color: #fdfdfd;
   position: absolute;
   left: 0;
   top: 0;
   right: 0;
   bottom: 0;
-  width: 80%;
+  width: 100%;
   margin: auto;
   overflow: auto;
 }
 
 #newClipTextField {
-  max-width: calc(100% - 20px);
+  max-width: calc(100% - 100px);
   background-color: white;
-  margin: 20px 10px 0px 10px;
+  margin: 20px 50px 0px 50px;
 }
 
 #app .md-textarea {
@@ -200,25 +200,35 @@ export default {
 
 #app .textarea-actions {
   margin-top: 15px;
-  margin-right: 10px;
+  margin-right: 50px;
   display: flex;
   justify-content: flex-end;
 }
 
 #app .clipboard-header {
-  margin-left: 20px;
+  margin-top: 10px;
+  margin-left: 50px;
   display: flex;
   align-items: flex-end;
   justify-content: flex-start;
+}
+
+#app .clipboard-header .current-channel-message {
+  padding-left: 5px;
 }
 
 #app .clipboard-header .clear-clipboard {
   margin-left: 10px;
 }
 
-#app .main .clip {
+#app .main .clips .clip:not(:first-child) {
   font-family: Arial, "Microsoft YaHei";
-  margin: 20px 10px 0 10px;
+  margin: 20px 50px 0 50px;
+}
+
+#app .main .clips .clip:first-child {
+  font-family: Arial, "Microsoft YaHei";
+  margin: 10px 50px 0 50px;
 }
 
 #app .md-card-content {
@@ -232,11 +242,10 @@ export default {
 
 .md-toolbar-section-start {
   max-width: 200px;
-  margin-right: 300px;
+  margin-right: 66%;
 }
 
 .search {
-  margin-left: 200px;
   max-width: 400px;
 }
 
@@ -259,7 +268,7 @@ export default {
 
 <style>
 body {
-  background-color: #cfcfcf;
+  background-color: #ffffff;
   overflow: auto;
 }
 </style>
