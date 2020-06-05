@@ -19,7 +19,7 @@
 
     <section class="main">
       <md-field md-clearable id="newClipTextField">
-        <md-textarea autofocus cols="10" v-model="newClipText" @keyup.ctrl.enter="addClip"></md-textarea>
+        <md-textarea autofocus v-model="newClipText" @keyup.ctrl.enter="addClip"></md-textarea>
       </md-field>
       <div class="textarea-actions">
         <md-button class="md-raised md-primary" @click="addClip">添加</md-button>
@@ -30,7 +30,7 @@
           <p class="current-channel-message">{{currentChannelMessage}}</p>
           <div class="clear-clipboard">
             <v-icon size="22px" @click="clearClipboard">mdi-trash-can-outline</v-icon>
-            <md-tooltip md-direction="right">删除当前频道全部内容</md-tooltip>
+            <md-tooltip md-direction="right">清空当前频道</md-tooltip>
           </div>
         </div>
         <div
@@ -182,8 +182,14 @@ export default {
 }
 
 #newClipTextField {
+  max-width: calc(100% - 20px);
   background-color: white;
   margin: 20px 10px 0px 10px;
+}
+
+#app .md-textarea {
+  margin-bottom: 30px;
+  resize: none;
 }
 
 #app .main {
@@ -192,14 +198,9 @@ export default {
   margin-top: 40px;
 }
 
-#app .md-textarea {
-  margin-bottom: 30px;
-  display: block;
-  resize: none;
-}
-
 #app .textarea-actions {
   margin-top: 15px;
+  margin-right: 10px;
   display: flex;
   justify-content: flex-end;
 }
