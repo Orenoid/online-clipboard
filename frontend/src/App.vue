@@ -178,7 +178,19 @@ export default {
   bottom: 0;
   width: 100%;
   margin: auto;
-  overflow: auto;
+  /* overflow: auto; */
+}
+
+#app .md-toolbar-row {
+  padding-left: 50px;
+  padding-right: 50px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.search {
+  max-width: 400px;
 }
 
 #newClipTextField {
@@ -240,15 +252,6 @@ export default {
   margin-top: 30px;
 }
 
-.md-toolbar-section-start {
-  max-width: 200px;
-  margin-right: 66%;
-}
-
-.search {
-  max-width: 400px;
-}
-
 #app div .clip {
   position: relative;
 }
@@ -269,6 +272,19 @@ export default {
 <style>
 body {
   background-color: #ffffff;
-  overflow: auto;
+}
+body::-webkit-scrollbar {
+  width: 7px;
+  height: 1px;
+}
+body::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: #c3c3c3;
+}
+body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(218, 218, 218, 0.2);
+  border-radius: 5px;
+  background: #ffffff;
 }
 </style>
