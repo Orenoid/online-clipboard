@@ -47,6 +47,7 @@ services:
       - clipboard
     ports: 
       - "3309:3306"
+    restart: always
     env_file: 
       - ./conf/mysql.example.env
 
